@@ -109,3 +109,9 @@ private:
 	Node* _south;
 	Node* _west;
 };
+
+template<>
+std::string Node<char>::getDescription() const
+{
+	return "You are in a cell with the a '" + std::string(1, getData()) + "' scratched into the floor.";
+}
