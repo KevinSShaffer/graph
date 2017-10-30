@@ -27,6 +27,7 @@ public:
 	void setNorth(Node* node)
 	{
 		_north = node;
+		_north->setSouth(this);
 	}
 	Node<T>* getEast() const
 	{
@@ -35,6 +36,7 @@ public:
 	void setEast(Node* node)
 	{
 		_east = node;
+		_east->setWest(this);
 	}
 	Node<T>* getSouth() const
 	{
@@ -43,6 +45,7 @@ public:
 	void setSouth(Node* node)
 	{
 		_south = node;
+		_south->setNorth(this);
 	}
 	Node<T>* getWest() const
 	{
@@ -51,6 +54,7 @@ public:
 	void setWest(Node* node)
 	{
 		_west = node;
+		_west->setEast(this);
 	}
 	std::string getDescription() const
 	{
