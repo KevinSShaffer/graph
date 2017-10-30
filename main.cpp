@@ -19,6 +19,9 @@ void startGame(Node<T>* start, Node<T>* finish)
 			std::cout << "Which direction would you like to go?" << std::endl;
 		} while (!(std::cin >> input) || !location->tryMove(input, location));
 	}
+
+	std::cout << location->getDescription() << std::endl;
+	std::cout << "Congratulations! You found the exit!" << std::endl;
 }
 
 int main()
@@ -43,6 +46,12 @@ int main()
 	F->setEast(G);
 	G->setNorth(C);
 	G->setEast(H);
+	H->setNorth(D);
+	H->setSouth(L);
+	A->setSouth(E);
+	E->setSouth(I);
+	I->setEast(J);
+	J->setEast(K);
 
 	startGame(A, L);
 
