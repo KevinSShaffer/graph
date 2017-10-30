@@ -27,6 +27,7 @@ public:
 	void setNorth(Node* node)
 	{
 		_north = node;
+		// this condition prevents infinite loops
 		if (!_north->getSouth())
 			_north->setSouth(this);
 	}
@@ -37,6 +38,7 @@ public:
 	void setEast(Node* node)
 	{
 		_east = node;
+		// this condition prevents infinite loops
 		if (!_east->getWest())
 			_east->setWest(this);
 	}
@@ -47,6 +49,7 @@ public:
 	void setSouth(Node* node)
 	{
 		_south = node;
+		// this condition prevents infinite loops
 		if (!_south->getNorth())
 			_south->setNorth(this);
 	}
@@ -57,6 +60,7 @@ public:
 	void setWest(Node* node)
 	{
 		_west = node;
+		// this condition prevents infinite loops
 		if (!_west->getEast())
 			_west->setEast(this);
 	}
@@ -67,13 +71,15 @@ public:
 	std::string getDirections() const
 	{
 		return "Would you like to go:" +
-			std::string(getNorth() != NULL ? "\n\tNorth(n)" : "") +
-			std::string(getEast() != NULL ? "\n\tEast(e)" : "") +
-			std::string(getSouth() != NULL ? "\n\tSouth(s)" : "") +
-			std::string(getWest() != NULL ? "\n\tWest(w)" : "");
+			// if not null then direction else blank string
+			std::string(getNorth() ? "\n\tNorth(n)" : "") +
+			std::string(getEast() ? "\n\tEast(e)" : "") +
+			std::string(getSouth() ? "\n\tSouth(s)" : "") +
+			std::string(getWest() ? "\n\tWest(w)" : "");
 	}
 	bool tryMove(Node*& currentLoc, Node* newLoc)
 	{
+		// if newLoc is not null
 		if (newLoc)
 		{
 			currentLoc = newLoc;
@@ -82,6 +88,9 @@ public:
 		else
 			return false;		
 	}
+	// if direction is valid move location to 
+	// desired location and return true
+	// otherwise return false
 	bool tryMove(char direction, Node*& location)
 	{
 		switch (direction)
@@ -110,6 +119,9 @@ private:
 	Node* _west;
 };
 
+// partial template specialization for type char
+// this is needed as Node<char> will output integer
+// value of char instead of a char
 template<>
 std::string Node<char>::getDescription() const
 {

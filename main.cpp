@@ -8,11 +8,16 @@ void startGame(Node<T>* start, Node<T>* finish)
 {
 	Node<T>* location = start;
 
+	// loop until the user is at the finish
 	while (location != finish)
 	{
+		// output the description of the room
 		std::cout << location->getDescription() << std::endl;
+		// get the possible directions for the room
 		std::cout << location->getDirections() << std::endl;
 
+		// keep asking the user which direction until a valid
+		// input is entered
 		char input;
 		do
 		{
@@ -20,6 +25,7 @@ void startGame(Node<T>* start, Node<T>* finish)
 		} while (!(std::cin >> input) || !location->tryMove(input, location));
 	}
 
+	// user has reached the end
 	std::cout << location->getDescription() << std::endl;
 	std::cout << "Congratulations! You found the exit!" << std::endl;
 }
